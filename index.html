@@ -1,0 +1,122 @@
+<html>
+<head>
+	<title>Timers</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+		body {
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		.timer {
+			width:40%;
+			position: relative;
+			border:1px solid black;
+			border-radius: 3px;
+			padding:10%;
+			margin-bottom:10px;
+		}
+
+		.timer .time {
+			display:block;
+			text-align: center;
+			font-weight:bold;
+			font-size:5em;
+		}
+		.timer .name {
+			text-align:center;
+			display:block;
+			font-size:2em;
+		}
+	</style>
+</head>
+<body>
+
+<div id="timers">
+	<div class="timer">
+		<span class="name" contentEditable>Timer (click to rename)</span>
+		<span class="time">0:00</span>
+		<label>Minutes: </label>
+		<input type="text" class="minutes"></input>
+		<button onclick="new Timer('a',this.parentNode, this.parentNode.querySelector('.minutes').value);">Create Timer</button>
+	</div>
+
+	<div class="timer">
+		<span class="name" contentEditable>Timer (click to rename)</span>
+		<span class="time">0:00</span>
+		<label contentEditable>Minutes: </label>
+		<input type="text" class="minutes"></input>
+		<button onclick="new Timer('b',this.parentNode, this.parentNode.querySelector('.minutes').value);">Create Timer</button>
+	</div>
+</div>
+
+<div id="actions">
+	<button onclick="CloneNode('.timer');">Add a timer</button>
+</div>
+
+<script type="text/javascript">
+	
+	Timer = function(name, element, minutes){
+		var name 		= name;
+		var minutes 	=  parseInt(minutes);
+		var seconds		=  0;
+		var div 		=  null;
+		var interval 	=  null;
+		var timeElement =  null;
+
+		this.init = function(div, minutes) {
+			div = div;
+			timeElement = div.querySelector('.time');
+
+			minutes = parseInt(minutes);
+			seconds = 0;
+
+			this.start();
+		}
+
+		this.updateTime = function (minutes, seconds) {
+			console.log("updateTime! " + name);
+			var min = (minutes < 10 ? '0' + minutes : minutes);
+			var secs = (seconds < 10 ? '0' + seconds : seconds);
+			(timeElement).innerHTML = min + ":" + secs;
+		}
+
+		this.countDown = function() {
+			console.log(seconds);
+			if (seconds == 0) {
+				if (minutes == 0) {
+					clearInterval(interval);
+					complete();
+					return;
+				} else {
+					seconds = 60;
+					minutes--;
+				}
+			}
+			seconds--;
+			this.updateTime(minutes, seconds);
+		}
+
+		this.start = function() {
+			var self = this;
+			interval = setInterval(function() {
+				self.countDown();
+			}, 1000);
+		}
+
+		this.complete = function() {
+			alert("COMPLETE!");
+		}
+
+		this.init(element, minutes);
+	}
+
+	CloneNode = function(selector) {
+		console.log('test');
+		var node = document.querySelector(selector).cloneNode(true);
+		document.getElementById("timers").appendChild(node);
+	}
+
+</script>
+
+</body>
+</html>
