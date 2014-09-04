@@ -7,8 +7,12 @@
 			font-family: 'Open Sans', sans-serif;
 		}
 
+		#timers {
+			width:80%;
+		}
+
 		.timer {
-			width:40%;
+			width:100%;
 			position: relative;
 			border:1px solid black;
 			border-radius: 3px;
@@ -27,6 +31,15 @@
 			display:block;
 			font-size:2em;
 		}
+
+		.timer input {
+			font-size:1.3em;
+		}
+
+		.timer .actions {
+			margin:auto;
+			text-align:center;
+		}
 	</style>
 </head>
 <body>
@@ -35,17 +48,21 @@
 	<div class="timer">
 		<span class="name" contentEditable>Timer (click to rename)</span>
 		<span class="time">0:00</span>
-		<label>Minutes: </label>
-		<input type="text" class="minutes"></input>
-		<button onclick="new Timer('a',this.parentNode, this.parentNode.querySelector('.minutes').value);">Create Timer</button>
+		<div class="actions">
+			<label>Minutes: </label>
+			<input type="text" class="minutes"></input>
+			<button onclick="new Timer('a',this.parentNode, this.parentNode.querySelector('.minutes').value);">Start Timer</button>
+		</div>
 	</div>
 
 	<div class="timer">
 		<span class="name" contentEditable>Timer (click to rename)</span>
 		<span class="time">0:00</span>
-		<label contentEditable>Minutes: </label>
-		<input type="text" class="minutes"></input>
-		<button onclick="new Timer('b',this.parentNode, this.parentNode.querySelector('.minutes').value);">Create Timer</button>
+		<div class="actions">
+			<label contentEditable>Minutes: </label>
+			<input type="text" class="minutes"></input>
+			<button onclick="new Timer('b',this.parentNode, this.parentNode.querySelector('.minutes').value);">Start Timer</button>
+		</div>
 	</div>
 </div>
 
