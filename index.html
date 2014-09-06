@@ -81,7 +81,7 @@
 		var timeElement =  null;
 
 		this.init = function(div, minutes) {
-			div = div;
+			div = div.parentElement;
 			timeElement = div.querySelector('.time');
 
 			minutes = parseInt(minutes);
